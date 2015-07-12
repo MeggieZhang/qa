@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>tab-demo</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		*{margin: 0; padding: 0; list-style: none; font-size: 12px;}
+		.tab {
+			width: 298px;
+			height: 98px;
+			margin: 10px;
+			border:1px solid #7bcfa6;
+			overflow: hidden;
+			border-radius: 5px;
+		}
+		.tab-title {
+			height: 27px;
+			position: relative;
+			background: #7bcfa6;
+		}
+		.tab-title ul {
+			position: absolute;
+			width: 301px;
+			left: -1px;
+		}
+		.tab-title li {
+			float: left;
+			width: 58px;
+			height: 26px;
+			line-height: 26px;
+			text-align: center;
+			overflow: hidden;
+			background: #fff;
+			padding: 0 1px;
+			border-bottom: #7bcfa6;
+			background: #7bcfa6;
+			
+		}
+		.tab a:link,.tab-title li a:visited {
+			text-decoration: none;
+			color: #000;
+		}
+		.tab a:hover {
+			color:#7bcfa6;;
+
+		}
+
+		.tab-title  .select {
+			background: #fff;
+			border-bottom:1px solid #fff;
+			border-left: 1px solid #f7f7f7;
+			border-right: 1px solid #f7f7f7;
+			padding: 0;
+			font-weight: bold;
+		}
+		.tab-content .cont {
+			margin: 10px 10px 10px 19px;
+		}
+
+	</style>
+	<script type="text/javascript" >
+		function $(id){
+			return typeof id==='string'?document.getElementById(id):id;
+		}
+		window.onload = function(){
+
+//标签的索引	
+var index = 0;
+var timer = null;
+
+var lis = $('tab-title').getElementsByTagName('li');
+divs = $('tab-content').getElementsByTagName('div');
+
+if(lis.length!=divs.length) return;
+
+//遍历所有的页签
+for(var i=0;i<lis.length;i++){
+lis[i].id = i;
+lis[i].onmouseover = function(){
+//用that这个变量来引用当前li
+var that = this;
+//如果存在准备执行的定时器，立刻清除，只有当前停留的时间大于500ms时才开始执行
+if(timer){
+clearTimeout(timer);
+timer = null;
+}
+//延迟半秒执行
+timer = window.setTimeout(function(){
+for(var j=0;j<lis.length;j++){
+lis[j].className = '';
+divs[j].style.display = 'none';
+}
+lis[that.id].className = 'select';
+divs[that.id].style.display = 'block';
+},300);
+}
+}
+}
+	</script>
+</head>
+<body>
+
+	<div id="tab" class="tab">
+		
+		<div id="tab-title" class="tab-title">
+			<ul>
+				<li class="select">
+					<a href="javascript:;">早餐</a>
+				</li>
+				<li>
+					<a href="javascript:;">早午餐</a>
+				</li>
+				<li>
+					<a href="javascript:;">午餐</a>
+				</li>
+				<li>
+					<a href="javascript:;">晚餐</a>
+				</li>
+				<li>
+					<a href="javascript:;">宵夜</a>
+				</li>
+			</ul>
+		</div>
+
+		<div id="tab-content" class="tab-content">
+				<div class="cont" style="display:block">
+					<a href="javascript:;">早上吃什么呢</a>
+				</div>	
+				<div class="cont" style="display:none">	
+					<a href="javascript:;">九点吃什么呢</a>
+				</div>	
+				<div class="cont" style="display:none">		
+					<a href="javascript:;">中午吃什么呢</a>
+				</div>	
+				<div class="cont" style="display:none">
+					<a href="javascript:;">晚上吃什么呢</a>
+				</div>	
+				<div class="cont" style="display:none">
+					<a href="javascript:;">半夜吃什么呢</a>
+				</div>	
+		</div>
+
+	</div>
+</body>
+</html>
